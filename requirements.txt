@@ -1,0 +1,12 @@
+numpy~=1.21.0
+spacy~=3.0.6
+sparse~=0.11.2
+cvxpy~=1.1.12
+scipy~=1.7.0
+scikit-learn~=0.23.1
+matplotlib~=3.0.2
+networkx~=2.4
+multidict~=5.1.0
+wordcloud~=1.8.1
+tqdm~=4.46.0
+sympy~=1.6.2
