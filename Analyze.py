@@ -11,7 +11,6 @@ import multidict
 from wordcloud import WordCloud
 import itertools
 from scipy.stats import sem
-#git reset --soft HEAD~
 plt.rcParams['pdf.fonttype'] = 42
 plt.rcParams['font.family'] = 'Calibri'
 
