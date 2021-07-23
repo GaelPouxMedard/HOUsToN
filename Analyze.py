@@ -14,6 +14,7 @@ from scipy.stats import sem
 plt.rcParams['pdf.fonttype'] = 42
 plt.rcParams['font.family'] = 'Calibri'
 
+
 limObs = 55000
 
 def getFrequencyDictForText(words):
