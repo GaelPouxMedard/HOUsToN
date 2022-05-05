@@ -548,9 +548,9 @@ if __name__ == '__main__':
 	else:
 		#data/Synth/Synth_PL_OL=0.0_wdsPerObs=5_vocPerClass=100_events.txt
 		#data/Memetracker/Memetracker_events.txt
-		dataFile = "data/Synth/Synth_ER_OL=0.0_wdsPerObs=5_vocPerClass=100_events.txt"
-		outputFolder = "output/Synth/"
-		arrR = [1.]
+		dataFile = "data/Memetracker/Memetracker_events.txt"
+		outputFolder = "output/Memetracker/"
+		arrR = [0.]
 		nbRuns = 1
 		theta0 = 0.1
 		particle_num = 4

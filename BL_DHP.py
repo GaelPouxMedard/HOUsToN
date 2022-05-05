@@ -120,16 +120,23 @@ class Dirichlet_Hawkes_Process(object):
 			#print(cluster_selection_probs)
 
 			# Random cluster selection
-			newOrExisting = multinomial(exp_num = 1, probabilities = [cluster_selection_probs[0], np.sum(cluster_selection_probs[1:])])
+			pNewOrExisting = np.array([cluster_selection_probs[0], np.sum(cluster_selection_probs[1:])])
+			pNewOrExisting = pNewOrExisting/np.sum(pNewOrExisting)
+			newOrExisting = multinomial(exp_num = 1, probabilities = pNewOrExisting)
+
 			newOrExisting = np.nonzero(newOrExisting)[0]
 			if newOrExisting == 0:
 				cluster_selection_probs[0] = 1
 				cluster_selection_probs[1:] = 0
 			elif newOrExisting == 1:
 				cluster_selection_probs[0] = 0
-				cluster_selection_probs[1:]/= np.sum(cluster_selection_probs[1:])
+				cluster_selection_probs[1:]= cluster_selection_probs[1:]/np.sum(cluster_selection_probs[1:])
 
-			selected_cluster_array = multinomial(exp_num = 1, probabilities = cluster_selection_probs)
+			try:
+				selected_cluster_array = multinomial(exp_num = 1, probabilities = cluster_selection_probs)
+			except Exception as e:
+				print(2, e, cluster_selection_probs)
+				pause()
 			selected_cluster_index = np.array(active_cluster_indexes)[np.nonzero(selected_cluster_array)][0]
 
 			# New cluster drawn
@@ -282,7 +289,7 @@ def run_fit_synth(params):
 
 	import matplotlib.pyplot as plt
 	observations = np.array(observations, dtype=object)
-	plt.plot(observations[:2000, 1], observations[:2000, -1]/10, "o", markersize=3)
+	#plt.plot(observations[:2000, 1], observations[:2000, -1]/10, "o", markersize=3)
 	#plt.show()
 
 	run_fit(observations, folderOut, nameOut, lamb0, r=r, sample_num=sample_num, particle_num=particle_num, printRes=True, theta0=theta0, save=save)
@@ -335,7 +342,8 @@ def run_fit(observations, folderOut, nameOut, lamb0, r=1., theta0=1., alpha0 = N
 				  f'Remaining time : {np.round((time.time()-t)*(len(observations)-i)/(i*3600), 2)}h - '
 				  f'ClusTot={DHP.particles[0].cluster_num_by_now} - ActiveClus = {len(DHP.particles[0].active_clusters)}')
 			un, cnt = np.unique(np.array(observations, dtype=object)[:i + 2, 4], return_counts=True)
-			print("True labels:", un, "\tCounts:", cnt, "\t[# clus, NMI, NMI last 500 obs, ARI]:", confMat(observations[:i + 1], [DHP.particles[0]])[0][0:4])
+			#print("True labels:", un, "\tCounts:", cnt, "\t")
+			print("[# clus, NMI, NMI last 500 obs, ARI]:", confMat(observations[:i + 1], [DHP.particles[0]])[0][0:4])
 
 		if i%1000==1:
 			while True:
@@ -370,8 +378,8 @@ if __name__ == '__main__':
 		file = sys.argv[2]
 	except Exception as e:
 		print("=====", e)
-		folderData = "Synth"
-		file = f"Synth_PL_OL=0.0_wdsPerObs=5_vocPerClass=100"
+		folderData = "Memetracker"
+		file = f"Memetracker"
 
 	folder=f"data/{folderData}/"
 	folderOut=f"output_BL/{folderData}/"

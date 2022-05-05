@@ -779,14 +779,17 @@ def plotMetrics():
             if "PL" in lab:
                 if "r=1" in lab:
                     plt.plot(arrRes[lab]["nbObs"], arrRes[lab]["NMI"], label="Ouston", c=next(colors))
+                    print("Houston")
                     print("NMI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["NMI"][-1])
                     print("ARI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["ARI"][-1])
                 if "r=0" in lab:
                     plt.plot(arrRes[lab]["nbObs"], arrRes[lab]["NMI"], label="TopicCascade", c=next(colors))
+                    print("TC")
                     print("NMI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["NMI"][-1])
                     print("ARI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["ARI"][-1])
         for IDHP in resBL["PL"]:
             plt.plot(resBL["PL"][IDHP]["NMI"].keys(), resBL["PL"][IDHP]["NMI"].values(), label=IDHP, c=next(colors))
+            print("DHP")
             print("NMI PL", "IDHP:", IDHP, np.array(list(resBL["PL"][IDHP]["NMI"].keys()))[-1], np.array(list(resBL["PL"][IDHP]["NMI"].values()))[-1])
             print("ARI PL", "IDHP:", IDHP, np.array(list(resBL["PL"][IDHP]["ARI"].keys()))[-1], np.array(list(resBL["PL"][IDHP]["ARI"].values()))[-1])
         plt.xlabel("# observations")
@@ -804,14 +807,17 @@ def plotMetrics():
             if "ER" in lab:
                 if "r=1" in lab:
                     plt.plot(arrRes[lab]["nbObs"], arrRes[lab]["NMI"], label="Ouston", c=next(colors))
+                    print("Houston")
                     print("NMI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["NMI"][-1])
                     print("ARI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["ARI"][-1])
                 if "r=0" in lab:
                     plt.plot(arrRes[lab]["nbObs"], arrRes[lab]["NMI"], label="TopicCascade", c=next(colors))
+                    print("TC")
                     print("NMI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["NMI"][-1])
                     print("ARI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["ARI"][-1])
         for IDHP in resBL["ER"]:
             plt.plot(resBL["ER"][IDHP]["NMI"].keys(), resBL["ER"][IDHP]["NMI"].values(), label=IDHP, c=next(colors))
+            print("DHP")
             print("NMI ER", "IDHP:", IDHP, np.array(list(resBL["ER"][IDHP]["NMI"].keys()))[-1], np.array(list(resBL["ER"][IDHP]["NMI"].values()))[-1])
             print("ARI ER", "IDHP:", IDHP, np.array(list(resBL["ER"][IDHP]["ARI"].keys()))[-1], np.array(list(resBL["ER"][IDHP]["ARI"].values()))[-1])
         plt.xlabel("# observations")
@@ -829,14 +835,17 @@ def plotMetrics():
             if "Blogs" in lab:
                 if "r=1" in lab:
                     plt.plot(arrRes[lab]["nbObs"], arrRes[lab]["NMI"], label="Ouston", c=next(colors))
+                    print("Houston")
                     print("NMI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["NMI"][-1])
                     print("ARI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["ARI"][-1])
                 if "r=0" in lab:
                     plt.plot(arrRes[lab]["nbObs"], arrRes[lab]["NMI"], label="TopicCascade", c=next(colors))
+                    print("TC")
                     print("NMI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["NMI"][-1])
                     print("ARI", lab, arrRes[lab]["nbObs"][-1], arrRes[lab]["ARI"][-1])
         for IDHP in resBL["PolBlogs"]:
             plt.plot(resBL["PolBlogs"][IDHP]["NMI"].keys(), resBL["PolBlogs"][IDHP]["NMI"].values(), label=IDHP, c=next(colors))
+            print("DHP")
             print("NMI PolBlogs", "IDHP:", IDHP, np.array(list(resBL["PolBlogs"][IDHP]["NMI"].keys()))[-1], np.array(list(resBL["PolBlogs"][IDHP]["NMI"].values()))[-1])
             print("ARI PolBlogs", "IDHP:", IDHP, np.array(list(resBL["PolBlogs"][IDHP]["ARI"].keys()))[-1], np.array(list(resBL["PolBlogs"][IDHP]["ARI"].values()))[-1])
         plt.xlabel("# observations")
@@ -867,6 +876,8 @@ def plotMetrics():
                 plt.plot(arrRes[lab]["nbObs"], arrRes[lab]["MAETot"], "-", label=f"Ouston - {l}", c=colors[ind])
                 arrRes[lab]["MAETot"] = np.array(arrRes[lab]["MAETot"])
                 #plt.fill_between(arrRes[lab]["nbObs"], arrRes[lab]["MAE"]+arrRes[lab]["MAESTD"], arrRes[lab]["MAE"]-arrRes[lab]["MAESTD"], alpha=0.3, color=colors[ind])
+
+                print("Houston")
                 print("MAETot", lab, arrRes[lab]["MAETot"][-1])
                 print("F1", lab, arrRes[lab]["F1"][-1])
                 print("AUC", lab, arrRes[lab]["AUC"][-1])
@@ -874,6 +885,7 @@ def plotMetrics():
                 plt.plot(arrRes[lab]["nbObs"], arrRes[lab]["MAETot"], "--", label=f"TopicCascade - {l}", c=colors[ind])
                 arrRes[lab]["MAETot"] = np.array(arrRes[lab]["MAETot"])
                 #plt.fill_between(arrRes[lab]["nbObs"], arrRes[lab]["MAE"]+arrRes[lab]["MAESTD"], arrRes[lab]["MAE"]-arrRes[lab]["MAESTD"], alpha=0.3, color=colors[ind])
+                print("TC")
                 print("MAETot", lab, arrRes[lab]["MAETot"][-1])
                 print("F1", lab, arrRes[lab]["F1"][-1])
                 print("AUC", lab, arrRes[lab]["AUC"][-1])
@@ -889,6 +901,7 @@ def plotMetrics():
 
 
 import sys
+
 try:
     choice = sys.argv[1]
 except:
