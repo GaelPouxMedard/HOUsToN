@@ -5,7 +5,7 @@ import time
 from copy import deepcopy as copy
 from utils import *
 import sparse
-from sklearn.metrics import normalized_mutual_info_score
+from sklearn.metrics import normalized_mutual_info_score, adjusted_rand_score
 import pickle
 
 '''
@@ -494,9 +494,10 @@ def evaluate(observations, part, outputfolder, nameOut, nameIn, r):
 	clusTrue = observations[part.docs2cluster_index, -1]
 	clusInf = part.docs2cluster_ID
 	NMI = normalized_mutual_info_score(clusTrue, clusInf)
+	ARI = adjusted_rand_score(clusTrue, clusInf)
 	NMI_last = normalized_mutual_info_score(clusTrue[-500:], clusInf[-500:])
 	nbClus = len(part.clusters)
-	print("NMI", NMI)
+	print("NMI", NMI, "ARI", ARI)
 
 	if "Memetracker" in nameIn or r==0.:
 		return
@@ -556,9 +557,9 @@ if __name__ == '__main__':
 		#data/Memetracker/Memetracker_events.txt
 		dataFile = "data/Memetracker/Memetracker_30min_events.txt"
 		outputFolder = "output/Memetracker/"
-		arrR = [0.]
+		arrR = [1.]
 		nbRuns = 1
-		theta0 = 0.1
+		theta0 = 0.01
 		particle_num = 4
 		printRes = True
 
