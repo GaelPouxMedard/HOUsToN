@@ -459,7 +459,6 @@ def run_fit(observations, dataFile, outputFolder, nameOut, lamb0, r=1., theta0=N
 		doc = parse_newsitem_2_doc(news_item = news_item, vocabulary_size = vocabulary_size)
 		DHP.sequential_monte_carlo(doc, threshold)
 		if i%100==1 and printRes:
-			print(horizon, observations[-1][1]-observations[0][1])
 			print(f'r={r} - Handling document {i}/{lgObs} (t={np.round(news_item[1]-observations[0][1], 1)}) - Average time : {np.round((time.time()-t)*1000/(i), 0)}ms - '
 				  f'Remaining time : {np.round((time.time()-t)*(len(observations)-i)/(i*3600), 2)}h - Elapsed time : {np.round((time.time()-t)/3600, 2)}h - '
 				  f'ClusTot={DHP.particles[0].cluster_num_by_now}')
