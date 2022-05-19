@@ -23,7 +23,7 @@ for name, obj in inspect.getmembers(cluster.expr_l[nodei]):
 
 class Dirichlet_Hawkes_Process(object):
 	"""docstring for Dirichlet Hawkes Prcess"""
-	def __init__(self, particle_num, base_intensity, theta0, vocabulary_size, r, number_nodes, number_cascades, horizon, horizon_kernel):
+	def __init__(self, particle_num, base_intensity, theta0, vocabulary_size, r, number_nodes, number_cascades, horizon):
 		super(Dirichlet_Hawkes_Process, self).__init__()
 		self.r = r
 		self.K=1
@@ -34,7 +34,6 @@ class Dirichlet_Hawkes_Process(object):
 		self.number_nodes = number_nodes
 		self.number_cascades=number_cascades
 		self.horizon = horizon
-		self.horizon_kernel = horizon_kernel
 		self.particles = []
 		for i in range(particle_num):
 			self.particles.append(Particle(weight = 1.0 / self.particle_num))
@@ -169,7 +168,7 @@ class Dirichlet_Hawkes_Process(object):
 		keys = list(particle.active_clusters.keys())
 		for cluster_index in keys:
 			activTup = particle.active_clusters[cluster_index]
-			active_timeseq = [d for d in activTup if d.timestamp > self.active_interval[1]-self.horizon_kernel]
+			active_timeseq = [d for d in activTup if d.timestamp > self.active_interval[1]-self.horizon]
 
 			particle.active_clusters[cluster_index] = active_timeseq
 
@@ -423,7 +422,7 @@ def saveParts(DHP, outputFolder, nameOut, news_item=None):
 			time.sleep(10)
 			continue
 
-def run_fit(observations, dataFile, outputFolder, nameOut, lamb0, r=1., theta0=None, particle_num=4, printRes=False, vocabulary_size=None, number_nodes=None, number_cascades=None, horizon=1e20, horizon_kernel=100*3600):
+def run_fit(observations, dataFile, outputFolder, nameOut, lamb0, r=1., theta0=None, particle_num=4, printRes=False, vocabulary_size=None, number_nodes=None, number_cascades=None, horizon=1e20):
 	"""
 	observations = ([array int] index_obs, [array float] timestamp, ([array int] unique_words, [array int] count_words), [opt, int] temporal_cluster, [opt, int] textual_cluster)
 	outputFolder = Output folder for the results
@@ -451,7 +450,7 @@ def run_fit(observations, dataFile, outputFolder, nameOut, lamb0, r=1., theta0=N
 	DHP = Dirichlet_Hawkes_Process(particle_num = particle_num, base_intensity = base_intensity, theta0 = theta0,
 								   vocabulary_size = vocabulary_size,
 								   r=r, number_nodes=number_nodes,
-								   number_cascades=number_cascades, horizon=horizon, horizon_kernel=horizon_kernel)
+								   number_cascades=number_cascades, horizon=horizon)
 
 	t = time.time()
 	lastsavetime = 0
@@ -460,6 +459,7 @@ def run_fit(observations, dataFile, outputFolder, nameOut, lamb0, r=1., theta0=N
 		doc = parse_newsitem_2_doc(news_item = news_item, vocabulary_size = vocabulary_size)
 		DHP.sequential_monte_carlo(doc, threshold)
 		if i%100==1 and printRes:
+			print(horizon, observations[-1][1]-observations[0][1])
 			print(f'r={r} - Handling document {i}/{lgObs} (t={np.round(news_item[1]-observations[0][1], 1)}) - Average time : {np.round((time.time()-t)*1000/(i), 0)}ms - '
 				  f'Remaining time : {np.round((time.time()-t)*(len(observations)-i)/(i*3600), 2)}h - Elapsed time : {np.round((time.time()-t)/3600, 2)}h - '
 				  f'ClusTot={DHP.particles[0].cluster_num_by_now}')
@@ -554,7 +554,7 @@ if __name__ == '__main__':
 	else:
 		#data/Synth/Synth_PL_OL=0.0_wdsPerObs=5_vocPerClass=100_events.txt
 		#data/Memetracker/Memetracker_events.txt
-		dataFile = "data/Memetracker/Memetracker_events.txt"
+		dataFile = "data/Memetracker/Memetracker_30min_events.txt"
 		outputFolder = "output/Memetracker/"
 		arrR = [0.]
 		nbRuns = 1
@@ -563,8 +563,7 @@ if __name__ == '__main__':
 		printRes = True
 	K = 1
 	if "Memetracker" in dataFile:
-		horizon_kernel = 0.5*7*24*3600/2  # Memetracker time unit: 30min
-		horizon = 4.5*7*24*3600/2  # Memetracker time unit: 30min
+		horizon = 2*24*7  # Memetracker_30min time unit: 30min... ; horizon = 1 week
 	else:
 		horizon_kernel = 500
 		horizon = 10000
@@ -577,6 +576,6 @@ if __name__ == '__main__':
 	for r in arrR:
 		name = f"{dataFile[dataFile.rfind('/'):].replace('.txt', '')}_r={r}_theta0={theta0}_particlenum={particle_num}"
 		observations, V, N, C = readObservations(dataFile, outputFolder, name)
-		run_fit(observations, dataFile, outputFolder, name, lamb0, r=r, theta0=theta0, particle_num=particle_num, printRes=printRes, vocabulary_size=V, number_nodes=N, number_cascades=C, horizon=horizon, horizon_kernel=horizon_kernel)
+		run_fit(observations, dataFile, outputFolder, name, lamb0, r=r, theta0=theta0, particle_num=particle_num, printRes=printRes, vocabulary_size=V, number_nodes=N, number_cascades=C, horizon=horizon)
 
 
