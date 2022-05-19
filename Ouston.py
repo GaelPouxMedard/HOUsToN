@@ -561,7 +561,6 @@ if __name__ == '__main__':
 		theta0 = 0.1
 		particle_num = 4
 		printRes = True
-
 	K = 1
 	if "Memetracker" in dataFile:
 		horizon = 2*24*7  # Memetracker_30min time unit: 30min... ; horizon = 1 week
