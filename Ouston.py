@@ -557,7 +557,7 @@ if __name__ == '__main__':
 		#data/Memetracker/Memetracker_events.txt
 		dataFile = "data/Memetracker/Memetracker_30min_events.txt"
 		outputFolder = "output/Memetracker/"
-		arrR = [1.]
+		arrR = [0.]
 		nbRuns = 1
 		theta0 = 0.01
 		particle_num = 4
