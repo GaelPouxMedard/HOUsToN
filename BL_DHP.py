@@ -36,7 +36,7 @@ class Dirichlet_Hawkes_Process(object):
 		self.theta0 = theta0
 		self.alpha0 = alpha0
 		self.vocabulary_size = vocabulary_size
-		self.horizon = 500
+		self.horizon = 2*24*7
 		self.sample_num = sample_num
 		self.particles = []
 		for i in range(particle_num):
@@ -379,7 +379,7 @@ if __name__ == '__main__':
 	except Exception as e:
 		print("=====", e)
 		folderData = "Memetracker"
-		file = f"Memetracker"
+		file = f"Memetracker_30min"
 
 	folder=f"data/{folderData}/"
 	folderOut=f"output_BL/{folderData}/"
