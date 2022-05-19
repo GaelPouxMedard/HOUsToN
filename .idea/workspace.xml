@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86046646-2866-41f5-bed7-6fefc5d14fa4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/figures_article/Clus_synth_light.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OUsToN.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OUsToN.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Analyze.py" beforeDir="false" afterPath="$PROJECT_DIR$/Analyze.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BL_DHP.py" beforeDir="false" afterPath="$PROJECT_DIR$/BL_DHP.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ouston.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ouston.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/Results.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/figures/Results.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures_article/Clus_rw.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures_article/Clus_rw.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +23,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Trucs/Site perso" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.Ouston">
@@ -139,7 +133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627218356143</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Changes">
+      <created>1651749582230</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1651749582230</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

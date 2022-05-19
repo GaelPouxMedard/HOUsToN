@@ -59,8 +59,9 @@ class Dirichlet_Hawkes_Process(object):
 	def particle_sampler(self, particle, doc):
 		# Sample cluster label
 		particle, selected_cluster_index = self.sampling_cluster_label(particle, doc)
-		# Update the triggering kernel
-		particle.clusters[selected_cluster_index].alpha[doc.node] = self.parameter_estimation(particle, selected_cluster_index, doc.node)
+		if not (self.r>-1e-5 and self.r<1e-5):
+			# Update the triggering kernel
+			particle.clusters[selected_cluster_index].alpha[doc.node] = self.parameter_estimation(particle, selected_cluster_index, doc.node)
 		# Calculate the weight update probability
 		particle.log_update_prob = self.calculate_particle_log_update_prob(particle, selected_cluster_index, doc)
 		return particle
@@ -88,16 +89,21 @@ class Dirichlet_Hawkes_Process(object):
 			for active_cluster_index in particle.active_clusters:
 				activeTup = np.array(particle.active_clusters[active_cluster_index], dtype=object)
 				active_cluster_indexes.append(active_cluster_index)
-				rate = self.base_intensity**self.r  # Background intensity process
 
-				if doc.node in particle.clusters[active_cluster_index].alpha:
-					alphaNode = particle.clusters[active_cluster_index].alpha[doc.node].todense()
-					for d in activeTup:
-						if d.casc == doc.casc:
-							t = d.timestamp
-							u = int(d.node)
-							alpha = alphaNode[u]
-							rate += H(doc.timestamp, t, alpha)
+
+				if not (self.r>-1e-5 and self.r<1e-5):
+					rate = self.base_intensity**self.r  # Background intensity process
+
+					if doc.node in particle.clusters[active_cluster_index].alpha:
+						alphaNode = particle.clusters[active_cluster_index].alpha[doc.node].todense()
+						for d in activeTup:
+							if d.casc == doc.casc:
+								t = d.timestamp
+								u = int(d.node)
+								alpha = alphaNode[u]
+								rate += H(doc.timestamp, t, alpha)
+				else:
+					rate = 0
 
 				# Dirichlet-Survival prior
 				active_cluster_rates.append(rate)
